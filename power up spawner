@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PowerUpSpawner : MonoBehaviour
+{
+    public GameObject powerupPrefab; // Préfab de l'ennemi que je veux faire apparaître.
+    public float spawnInterval = 2.0f; // Intervalle de temps entre les apparitions d'ennemis.
+    public float spawnRadius = 10.0f; // Rayon dans lequel les ennemis peuvent apparaître.
+
+    private float timeSinceLastSpawn = 0.0f;
+
+    void Update()
+    {
+        timeSinceLastSpawn += Time.deltaTime;
+
+        if (timeSinceLastSpawn >= spawnInterval)
+        {
+            Spawn();
+            timeSinceLastSpawn = 0.0f;
+        }
+    }
+
+    void Spawn()
+    {
+        Vector3 randomPosition = Random.insideUnitSphere * spawnRadius;
+        randomPosition.y = 4.93f; // Assurez-vous que l'ennemi apparaisse sur le même plan que votre jeu.
+
+        Instantiate(powerupPrefab, transform.position + randomPosition, Quaternion.identity);
+    }
+
+}
