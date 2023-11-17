@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Mouvementss: MonoBehaviour
+{
+    public float speed = 3f;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+
+    void Update()
+    {
+        transform.Translate(new Vector3(12,-2, 0) * speed * Time.deltaTime);
+
+        if (Random.Range(0, 100) < 5) // Chance de tirer
+            Fire();
+    }
+
+    void Fire()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    }
+}
