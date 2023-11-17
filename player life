@@ -1,0 +1,6 @@
+        if (collision.gameObject.tag == "powerup")
+        {
+            GainLife();
+            Destroy(collision.gameObject);
+
+        }
