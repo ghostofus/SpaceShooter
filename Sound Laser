@@ -1,0 +1,67 @@
+using UnityEngine;
+
+public class Shootlaser : MonoBehaviour
+{
+    public GameObject laserPrefab; // Préfab du laser.
+    public Transform firePoint; // Emplacement à partir duquel le laser sera tiré.
+    public GameObject soundPlayer;
+    public AudioClip laserSound;
+
+    private float nextFireTime = 0f;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ShootLaserFunction();
+        }   
+
+    }
+
+    void ShootLaserFunction()
+    {
+        Instantiate(laserPrefab, firePoint.position, firePoint.rotation);
+        GameObject newSoundPlayer = Instantiate(soundPlayer);
+        soundPlayer.GetComponent<SoundPlayer>().soundToPlay = laserSound;
+    }
+}
+
+
+----
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SoundPlayer : MonoBehaviour
+{
+    [Header("Parameters")]
+    public AudioClip soundToPlay;
+    private AudioSource audioSource;
+    public GameObject soundPlayer;
+    private float soundLenght;
+    public float volume = 1f;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        PlaySound();
+    }
+
+    void PlaySound()
+    {
+        AudioClip clip = soundToPlay;
+        audioSource.volume = volume;
+        audioSource.PlayOneShot(clip);
+        soundLenght = clip.length;
+        Destroy(gameObject, soundLenght);
+    }
+}
+
+
+
+
