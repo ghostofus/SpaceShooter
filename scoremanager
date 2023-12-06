@@ -1,0 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class ScoreManager : MonoBehaviour
+{
+    public int scoremanager;
+    public TextMeshProUGUI affichageScore;
+
+    // Update is called once per frame
+    void Update()
+    {
+        affichageScore.text = scoremanager.ToString();
+    }
+}
