@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class shield : MonoBehaviour
+{
+    public PlayerLifeSystem lifeSystem;
+    // Start is called before the first frame update
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print(collision.gameObject.name);
+        if (collision.gameObject.tag == "powerup")
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(BecomeInvicible());
+        }
+    }
+
+    public IEnumerator BecomeInvicible()
+    {
+        lifeSystem.invicible = true;
+        print("Deviens invincible");
+
+        yield return new WaitForSeconds(10);
+
+        lifeSystem.invicible = true;
+        print("Je suis plus invincible");
+
+    }
+}
